@@ -2,10 +2,6 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-}
-
 .container {
     width: 375px;
     height: 667px;
@@ -38,8 +34,16 @@ header ion-icon {
     font-size: 42px;
 }
 
+main {
+    padding-top: 80px;
+}
+
 .chat {
-    padding-top: 102px;
+    height: 507px;
+
+    overflow-x: hidden;
+
+    position: relative;
 }
 
 .mensagem {
@@ -47,16 +51,23 @@ header ion-icon {
     height: 40px;
     border-radius: 2px;
     margin: 4px 0;
+    padding-left: 8px;
 
-    font-family: Roboto;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
+    font: normal 14px Roboto;
+
     line-height: 16px;
-    letter-spacing: 0em;
+}
 
-    display: flex;
-    align-items: center;
+.mensagem:first-child {
+     margin-top: 26px;
+}
+
+span.pessoa {
+    font-weight: 700;
+}
+
+span.hora {
+    color: #AAAAAA;
 }
 
 .status {
@@ -77,11 +88,12 @@ footer {
 
     position: absolute;
     bottom: 0;
-    z-index: 10;
+    z-index: 9;
 }
 
 footer ion-icon {
     font-size: 26px;
+    cursor: pointer;
 }
 
 input {
