@@ -1,54 +1,38 @@
-let nome = prompt("Qual é o seu nome?")
-let dadosNome = {name: nome}
-let participantes = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", dadosNome);
-participantes.then(entrarNaSala)
-participantes.catch(erroDeNome)
+function entrarSala() {
+    let nome = prompt("Qual é o seu lindo nome?");
+    const dados = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", { name: nome });
 
-function entrarNaSala(acerto) {
-    //console.log(acerto.data)
+    dados.catch(entrarSala);
 }
 
-function erroDeNome(erro) {
-    //console.log(erro.response.data)
-    alert("Já existe um participante com este nome, por favor digite outro")
-    nome = prompt("Qual é o seu nome?")
-}
+entrarSala();
 
+function verMensagens(mensagem) {
+    const mensagens = mensagem.data;
 
-function verMensagens(info) {
-    let chat = document.querySelector(".chat")
-    let buscarMensagens = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
-    for (let i = 0; i < info.data.length; i++) {
-        //let mensagem = document.querySelect(".mensagem");
-        chat.innerHTML += 
-        `
-        <div class="mensagem">
-            <span class="hora">(${info.data[i].time})</span> <span class="pessoa">${info.data[i].from}</span>  ${info.data[i].text} ${info.data[i].type}
+    const chat = document.querySelector(".chat");
+
+    for (let i = 0; i < mensagens.length; i++) {
+        const recebido = mensagens[i];                                                                          
+        chat.innerHTML += `
+        <div class="mensagem"> 
+            <span class="hora">${recebido.time}</span> <span class="pessoa">${recebido.from}</span> ${recebido.text};
         </div>
         `
-        // if (info.data[i].type === 'status') {
-        //     mensagem.classList.add("status") 
-        // } else if (info.data[i].type === 'private_message') {
-        //     mensagem.classList.add("private_message")
-        // } else {
-        //     mensagem.classList.add("normal")
-        // }
     }
-    chat.scrollIntoView()
-    buscarMensagens.then(verMensagens)
 }
 
-let mensagemRecebida
-let mensagemEnviada
-let enviarMensagens
-
-function mensagemNoChat(msg) {
-    mensagemRecebida = document.querySelector("input").value
-    mensagemEnviada = {from: nome, to: nome, text: mensagemRecebida, type: "message"}
-    enviarMensagens = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", mensagemEnviada);
-
+function verErro (erro) {
+    console.log(erro.response);
 }
 
-enviarMensagens.then(mensagemNoChat)
-enviarMensagens.catch(erroNaMensagem)
+function carregarMensagens() {
+    const dados = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
+
+    dados.then(verMensagens);
+
+    dados.catch(verErro);
+}
+
+setInterval(carregarMensagens, 3000);
 
