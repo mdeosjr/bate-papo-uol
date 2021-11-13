@@ -48,6 +48,7 @@ main {
 
 .mensagem {
     width: 100%;
+    height: 40px;
     
     border-radius: 2px;
     margin: 8px 0;
@@ -56,10 +57,16 @@ main {
     font: normal 14px Roboto;
 
     line-height: 16px;
+    display: flex;
+    align-items: center;
 }
 
 .mensagem:first-child {
      margin-top: 26px;
+}
+
+span {
+    padding: 0 4px;
 }
 
 span.pessoa {
@@ -74,11 +81,11 @@ span.hora {
     background-color: #DCDCDC;
 }
 
-.reservado {
+.private_message {
     background-color: #FFDEDE;
 }
 
-.normal {
+.message {
     background-color: #FFFFFF;
 }
 
