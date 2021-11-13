@@ -48,9 +48,9 @@ main {
 
 .mensagem {
     width: 100%;
-    height: 40px;
+    
     border-radius: 2px;
-    margin: 4px 0;
+    margin: 8px 0;
     padding-left: 8px;
 
     font: normal 14px Roboto;
