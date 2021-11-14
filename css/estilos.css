@@ -2,6 +2,72 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: Roboto, sans-serif;
+}
+
+.telaDeEntrada {
+    width: 375px;
+    height: 667px;
+    border: 1px solid #D7D7D7;
+    border-radius: 3px;
+
+    position: relative;
+    z-index: 11;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.telaDeEntrada img {
+    margin-top: 72px;
+}
+
+input.nome {
+    all: unset;
+    
+    background: #FFFFFF;
+    border: 1px solid #D7D7D7;
+    box-sizing: border-box;
+    border-radius: 4px;
+
+    text-align: center;
+
+    width: 261px;
+    height: 54px;
+    margin-top: 94px;
+}
+
+input.name::placeholder {
+    font: normal normal 14px;
+
+    line-height: 25px;
+
+    color: #AEAEAE;
+
+    margin: 0 auto;
+}
+
+.botaoDeEntrada {
+    width: 109px;
+    height: 45px;
+    margin-top: 15px;
+
+    background: #E7E7E7;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+span.entrar {
+    font: normal normal 18px;
+    line-height: 25px;
+    color: #696969;
+}
+
 .container {
     width: 375px;
     height: 667px;
@@ -109,9 +175,13 @@ input {
     height: 80px;
 }
 
-input::placeholder {
+input.texto::placeholder {
     font: italic 18px Roboto;
     line-height: 21px;
 
     color: #000000;
+}
+
+.escondido {
+    display: none;
 }

@@ -11,7 +11,14 @@
     <title>Bate-Papo Uol</title>
 </head>
 <body>
-    <div class="container">
+    <div class="telaDeEntrada">
+        <img src="logo 2.png">
+        <input type="text" class="nome" placeholder="Digite seu nome">
+        <div class="botaoDeEntrada" onclick="carregarMensagens()">
+            <span class="entrar">Entrar</span>
+        </div>
+    </div>
+    <div class="container escondido">
         <header>
             <img src="logo 1.png">
             <ion-icon name="people"></ion-icon>
@@ -21,8 +28,8 @@
             </div>    
         </main>
         <footer>
-            <input type="text" placeholder="Escreva aqui..."></input>
-            <ion-icon onclick="propostaMensagem()" name="paper-plane-outline"></ion-icon>
+            <input class="texto" type="text" placeholder="Escreva aqui..."></input>
+            <ion-icon onclick="propostaMensagem()" name="paper-plane-outline" data-identifier="send-message"></ion-icon>
         </footer>
     </div>
 </body>

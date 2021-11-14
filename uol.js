@@ -1,7 +1,7 @@
 let nome 
 
 function entrarSala() {
-    nome = prompt("Qual é o seu lindo nome?");
+    nome = document.querySelector("input.nome").value
 
     const dados = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", { name: nome });
 
@@ -14,7 +14,7 @@ function erroEntrada(info) {
     entrarSala();
 }
 
-entrarSala();
+//entrarSala();
 
 function verMensagens(mensagem) {
     const mensagens = mensagem.data;
@@ -25,7 +25,7 @@ function verMensagens(mensagem) {
         let recebido = mensagens[i];                                                                          
         chat.innerHTML += 
         `
-        <div class="mensagem ${recebido.type}"> 
+        <div class="mensagem ${recebido.type} data-identifier="message""> 
             <span class="hora">(${recebido.time})</span> <span class="pessoa">${recebido.from}</span> para <span class="pessoa">${recebido.to}:</span> ${recebido.text}
         </div>
         `
@@ -47,7 +47,7 @@ function carregarMensagens() {
     dados.catch(verErro);
 }
 
-setInterval(carregarMensagens, 3000);
+//setInterval(carregarMensagens, 3000);
 
 function propostaMensagem() {
     let mensagemAEnviar = document.querySelector("input").value;
@@ -79,4 +79,4 @@ function verificarConexao () {
     axios.post("https://mock-api.driven.com.br/api/v4/uol/status", { name: nome })
 }
 
-setInterval(verificarConexao, 5000);
+//setInterval(verificarConexao, 5000);
