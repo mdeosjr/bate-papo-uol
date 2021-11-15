@@ -3,18 +3,18 @@ let nome
 function entrarSala() {
     nome = document.querySelector("input.nome").value
 
-    const dados = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", { name: nome });
+    const dadosNome = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", { name: nome });
+    
+    dadosNome.then(carregarMensagens);
+    dadosNome.catch(erroEntrada);
 
-    dados.then(verificarConexao);
-    dados.catch(erroEntrada);
+    const container = document.querySelector(".container")
+    container.classList.remove("escondido")
 }
 
 function erroEntrada(info) {
-    alert("Erro: " + info.response.status + ". Nome já em uso, por favor digite outro nome!")
-    entrarSala();
+    alert(`Erro: ${info.response.status}. Nome já em uso, por favor digite outro nome!`)
 }
-
-//entrarSala();
 
 function verMensagens(mensagem) {
     const mensagens = mensagem.data;
@@ -35,22 +35,16 @@ function verMensagens(mensagem) {
     ultimaMensagem.scrollIntoView();
 }
 
-function verErro (erro) {
-    console.log(erro.response);
-}
-
 function carregarMensagens() {
     const dados = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
 
     dados.then(verMensagens);
-
-    dados.catch(verErro);
 }
 
-//setInterval(carregarMensagens, 3000);
+setInterval(carregarMensagens, 3000);
 
 function propostaMensagem() {
-    let mensagemAEnviar = document.querySelector("input").value;
+    let mensagemAEnviar = document.querySelector("input.texto").value;
     let objetoMensagens = {
         from: nome,
         to: "Todos",
@@ -59,24 +53,11 @@ function propostaMensagem() {
     };
     const dados = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", objetoMensagens)
 
-    dados.then(enviarMensagem);
-    dados.catch(verErro);
-
-    mensagemAEnviar = '';
-}
-
-function enviarMensagem(mensagem) {
-    const chat = document.querySelector(".chat");
-    chat.innerHTML += 
-    `
-    <div class="mensagem"> 
-        <span class="hora">(${mensagem.data.time})</span> <span class="pessoa">${mensagem.data.from}</span> <span class="pessoa">${mensagem.data.to}</span>: ${mensagem.data.text}
-    </div>
-    `
+    document.querySelector("input.texto").value = "";
 }
 
 function verificarConexao () {
     axios.post("https://mock-api.driven.com.br/api/v4/uol/status", { name: nome })
 }
 
-//setInterval(verificarConexao, 5000);
+setInterval(verificarConexao, 5000);
