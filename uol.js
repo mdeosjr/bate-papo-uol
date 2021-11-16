@@ -1,8 +1,7 @@
-let nome 
+let nome;
 
 function entrarSala() {
-    nome = document.querySelector("input.nome").value
-
+    nome = document.querySelector("input.nome").value;
     const dadosNome = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", { name: nome });
     
     dadosNome.then(carregarMensagens);
@@ -10,10 +9,18 @@ function entrarSala() {
 
     const container = document.querySelector(".container")
     container.classList.remove("escondido")
+
+    let barraPreta = document.querySelector(".telaParticipantes")
+    barraPreta.classList.remove("escondido")
 }
 
 function erroEntrada(info) {
-    alert(`Erro: ${info.response.status}. Nome já em uso, por favor digite outro nome!`)
+    alert(`Erro: ${info.response.status}\nNome já em uso, por favor digite outro nome!`)
+
+    const container = document.querySelector(".container")
+    container.classList.add("escondido")
+
+    document.querySelector("input.nome").value = ''
 }
 
 function verMensagens(mensagem) {
@@ -22,13 +29,29 @@ function verMensagens(mensagem) {
     const chat = document.querySelector(".chat");
 
     for (let i = 0; i < mensagens.length; i++) {
-        let recebido = mensagens[i];                                                                          
-        chat.innerHTML += 
+        let recebido = mensagens[i]; 
+        if (recebido.type === "status") {                                                                         
+            chat.innerHTML += 
+        `
+        <div class="mensagem ${recebido.type} data-identifier="message""> 
+            <span class="hora">(${recebido.time})</span> <span class="pessoa">${recebido.from}</span> ${recebido.text}
+        </div>
+        `
+        } else if (recebido.type === "message") {
+            chat.innerHTML += 
         `
         <div class="mensagem ${recebido.type} data-identifier="message""> 
             <span class="hora">(${recebido.time})</span> <span class="pessoa">${recebido.from}</span> para <span class="pessoa">${recebido.to}:</span> ${recebido.text}
         </div>
         `
+        } else {
+            chat.innerHTML += 
+        `
+        <div class="mensagem ${recebido.type} data-identifier="message""> 
+            <span class="hora">(${recebido.time})</span> <span class="pessoa">${recebido.from}</span> reservadamente para <span class="pessoa">${recebido.to}:</span> ${recebido.text}
+        </div>
+        `
+        }
     }
     let todasAsMensagens = document.querySelector(".chat");
     let ultimaMensagem = todasAsMensagens.lastElementChild;
@@ -51,7 +74,7 @@ function propostaMensagem() {
         text: mensagemAEnviar,
         type: "message"
     };
-    const dados = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", objetoMensagens)
+    axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", objetoMensagens)
 
     document.querySelector("input.texto").value = "";
 }
@@ -61,3 +84,40 @@ function verificarConexao () {
 }
 
 setInterval(verificarConexao, 5000);
+
+function buscaParticipantes () {
+    const participantes = axios.get("https://mock-api.driven.com.br/api/v4/uol/participants");
+
+    participantes.then(verParticipantes)
+    participantes.catch(() => alert("ERRO!"))
+}
+
+setInterval(buscaParticipantes, 10000);
+
+function verParticipantes (nomesOnline) {
+    let nomes = nomesOnline.data;
+    const lista = document.querySelector(".participantes");
+
+    for (let i = 0; i < nomes.length; i++) {
+        let recebido = nomes[i]
+        lista.innerHTML += 
+        `<div class="individual data-identifier="participant"">
+            <ion-icon name="person-circle"></ion-icon>
+            <li>${recebido.name}</li>
+        </div>
+        `
+    }
+}
+
+function botaoParticipantes () {
+    let botao = document.querySelector(".telaParticipantes")
+    botao.classList.add("participantesEscondidos")
+}
+
+function retirarTelaParticipantes () {
+    let barraPreta = document.querySelector(".telaParticipantes")
+    barraPreta.classList.remove("participantesEscondidos")
+}
+
+
+

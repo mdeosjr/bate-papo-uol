@@ -11,29 +11,43 @@
     <title>Bate-Papo Uol</title>
 </head>
 <body>
-    <div class="telaDeEntrada">
-        <img src="logo 2.png">
-        <input type="text" class="nome" placeholder="Digite seu nome">
-        <div class="botaoDeEntrada" onclick="entrarSala()">
-            <span class="entrar">Entrar</span>
+    <div class="principal">
+        <div class="telaDeEntrada">
+            <img src="logo 2.png">
+            <input type="text" class="nome" data-identifier="enter-name" placeholder="Digite seu nome">
+            <div class="botaoDeEntrada" data-identifier="start" onclick="entrarSala()">
+                <span class="entrar">Entrar</span>
+            </div>
         </div>
-    </div>
-    <div class="container escondido">
-        <header>
-            <img src="logo 1.png">
-            <ion-icon name="people"></ion-icon>
-        </header>
-        <main>
-            <div class="chat">
-            </div>    
-        </main>
-        <footer>
-            <input class="texto" type="text" placeholder="Escreva aqui..."></input>
-            <ion-icon onclick="propostaMensagem()" name="paper-plane-outline" data-identifier="send-message"></ion-icon>
-        </footer>
+        <div class="container escondido">
+            <header>
+                <img src="logo 1.png">
+                <ion-icon onclick="botaoParticipantes()" name="people"></ion-icon>
+            </header>
+            <main>
+                <div class="chat">
+                </div>    
+            </main>
+            <footer>
+                <input class="texto" type="text" placeholder="Escreva aqui..."></input>
+                <ion-icon onclick="propostaMensagem()" name="paper-plane-outline" data-identifier="send-message"></ion-icon>
+            </footer>
+        </div>
+        <div class="telaParticipantes escondido">
+            <div class="barraPreta" onclick="retirarTelaParticipantes()"></div>
+            <div class="listaParticipantes">
+                <h1>Escolha um contato para enviar mensagem:</h1>
+                <ul class="participantes">
+                    <div class="individual">
+                        <ion-icon name="people"></ion-icon>
+                        <li>Todos</li>
+                    </div>
+                </ul>
+            </div>
+        </div>
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
 <script src="uol.js"></script>
-</html>
+</html>         
