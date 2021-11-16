@@ -197,15 +197,16 @@ h1 {
     height: 84px;
     padding: 0 45px;
 
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
+    font: bold 16px Roboto;
+    
     line-height: 19px;
+    
     display: flex;
     align-items: center;
     text-align: center;
 
     color: #000000;
+    background-color: white;
 }
 
 .telaParticipantes {
@@ -228,10 +229,21 @@ h1 {
    height: 667px;
 
    background-color: white;
+   overflow-x: hidden;
+}
+
+.participantes {
+    padding-top: 0px;
 }
 
 .individual {
     display: flex;
+    align-items: center;
+}
+
+.bordaSelecao {
+    border: 1px solid #000000;
+    border-radius: 4px;
 }
 
 .barraPreta {
@@ -242,15 +254,16 @@ h1 {
 }
 
 li {
-    padding: 7px 0;
     font: normal normal 16px;
 
     color: #000000;
+
+    cursor: pointer;
 }
 
 .participantes ion-icon {
     font-size: 20px;
-    padding: 4px 7px 18px 17px;
+    padding: 16px 7px 18px 17px;
 }
 
 .escondido {

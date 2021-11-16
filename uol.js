@@ -97,27 +97,40 @@ setInterval(buscaParticipantes, 10000);
 function verParticipantes (nomesOnline) {
     let nomes = nomesOnline.data;
     const lista = document.querySelector(".participantes");
-
+    lista.innerHTML =  `<div class="individual" onclick="selecionarParticipante(this)">
+                            <ion-icon name="people"></ion-icon>
+                            <li>Todos</li>
+                        </div>`
     for (let i = 0; i < nomes.length; i++) {
         let recebido = nomes[i]
         lista.innerHTML += 
-        `<div class="individual data-identifier="participant"">
+        `
+        <div class="individual" data-identifier="participant" onclick="selecionarParticipante(this)">
             <ion-icon name="person-circle"></ion-icon>
             <li>${recebido.name}</li>
         </div>
-        `
+       `
     }
-}
+}   
 
 function botaoParticipantes () {
     let botao = document.querySelector(".telaParticipantes")
     botao.classList.add("participantesEscondidos")
+    botao.classList.remove("escondido")
 }
 
 function retirarTelaParticipantes () {
     let barraPreta = document.querySelector(".telaParticipantes")
     barraPreta.classList.remove("participantesEscondidos")
+    botao.classList.add("escondido")
 }
 
+function selecionarParticipante (selecionado) {
+    let borda = document.querySelector(".bordaSelecao")
 
+    if (borda !== null) {
+        borda.classList.remove("bordaSelecao")
+    }
 
+    selecionado.classList.toggle("bordaSelecao")
+}
